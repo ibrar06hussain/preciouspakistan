@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             SampleHotelsSeeder::class,
             SampleFleetSeeder::class,
             SampleNomadsSeeder::class,
+            SampleSocialAccountsSeeder::class,
         ]);
     }
 }

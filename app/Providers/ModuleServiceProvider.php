@@ -12,6 +12,12 @@ use App\Modules\Cms\Policies\CmsPagePolicy;
 use App\Modules\Cms\Services\MenuService;
 use App\Modules\Cms\Services\SiteSettingsService;
 use App\Modules\Cms\Support\ThemePresets;
+use App\Modules\Communications\Contracts\CommunicationChannelConnector;
+use App\Modules\Communications\Models\Inquiry;
+use App\Modules\Communications\Models\SocialAccount;
+use App\Modules\Communications\Policies\InquiryPolicy;
+use App\Modules\Communications\Policies\SocialAccountPolicy;
+use App\Modules\Communications\Services\DisabledMetaChannelConnector;
 use App\Modules\Destinations\Models\Attraction;
 use App\Modules\Destinations\Models\Destination;
 use App\Modules\Destinations\Models\District;
@@ -68,6 +74,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->bind(MfaProvider::class, NullMfaProvider::class);
         $this->app->bind(PaymentGatewayAdapter::class, DisabledPaymentGatewayAdapter::class);
         $this->app->bind(VirusScanner::class, NullVirusScanner::class);
+        $this->app->bind(CommunicationChannelConnector::class, DisabledMetaChannelConnector::class);
     }
 
     public function boot(): void
@@ -101,6 +108,8 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(FxRateSnapshot::class, FxRatePolicy::class);
         Gate::policy(MediaAsset::class, MediaAssetPolicy::class);
         Gate::policy(UrlRedirect::class, SeoPolicy::class);
+        Gate::policy(SocialAccount::class, SocialAccountPolicy::class);
+        Gate::policy(Inquiry::class, InquiryPolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);

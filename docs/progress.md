@@ -85,5 +85,11 @@
 - [x] `SeoService` (truthful `TravelAgency`/`TouristDestination`/`TouristTrip`/`BreadcrumbList`/`FAQPage` JSON-LD with zero fake review stars, dynamic `/sitemap.xml` excluding drafts & `noindex`, `/robots.txt`, SEO/alt-text auditor).
 - [x] Filament 5 `MediaAssetResource`, `UrlRedirectResource`, and `SeoAuditPage`; verified with `tests/Feature/Phase11/MediaAndSeoTest.php`.
 
+### Phase 12 — Social Links, Inquiries, Contextual WhatsApp & Optional Connectors *(Completed)*
+- [x] Reversible migration for `social_accounts`, `inquiries`, and `communication_channel_configs`.
+- [x] `WhatsAppLinkService` (non-PII contextual `wa.me` click-to-chat URLs), `YouTubeEmbedHelper` (`youtube-nocookie.com` safe embed validation), `InquiryService` (explicit consent timestamp, retention period, hashed IP), and `DisabledMetaChannelConnector` (strictly disabled until authorized Meta credentials exist).
+- [x] Filament 5 `SocialAccountResource`, `InquiryResource`, and `CommunicationChannelsPage`; seeded sample social links via `SampleSocialAccountsSeeder`.
+- [x] Verified with `tests/Feature/Phase12/CommunicationsTest.php`.
+
 ## Upcoming Phases
-- Phases 12–14: Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phases 13–14: PWA/Dashboards & Quality, WordPress Migration & Hostinger VPS Deployment
