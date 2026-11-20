@@ -130,8 +130,19 @@
                 <h2 class="text-lg font-bold text-slate-900">Tours Visiting {{ $destination->name }}</h2>
                 @if ($relatedTours->isEmpty())
                     <p class="text-sm text-slate-600">
-                        Published tour packages linked to {{ $destination->name }} will appear here automatically once the Tour Catalog goes live in Phase 5.
+                        No published tour packages are currently linked to {{ $destination->name }}. Request a bespoke itinerary below.
                     </p>
+                @else
+                    <div class="space-y-3">
+                        @foreach ($relatedTours as $tour)
+                            <a href="{{ $tour->publicUrl() }}" class="block rounded-xl border border-slate-200 bg-slate-50 p-3.5 hover:border-emerald-400 transition">
+                                <p class="text-sm font-bold text-slate-900">{{ $tour->title }}</p>
+                                <p class="mt-1 text-xs text-slate-600">
+                                    {{ $tour->duration_days }} Days / {{ $tour->duration_nights }} Nights &bull; {{ $tour->displayPrice('PKR') }}
+                                </p>
+                            </a>
+                        @endforeach
+                    </div>
                 @endif
                 <x-ui.button href="/contact" variant="primary" class="w-full">
                     Request Custom {{ $destination->name }} Quote

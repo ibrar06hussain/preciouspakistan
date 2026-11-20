@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             SiteBootstrapSeeder::class,
             CmsDefaultPagesSeeder::class,
             PakistanDestinationsSeeder::class,
+            SampleToursSeeder::class,
         ]);
     }
 }

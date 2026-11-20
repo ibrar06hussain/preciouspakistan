@@ -36,6 +36,14 @@
 - [x] Public routes (`/destinations`, `/regions/{slug}`, `/destinations/{slug}`, `/api/geo/features`) and Filament 5 CRUD (`RegionResource`, `DistrictResource`, `DestinationResource`, `AttractionResource`) with full SEO fields.
 - [x] Phase 4 feature tests for hierarchy validation, automatic 301 redirects, geographic search, GeoJSON API, and RBAC permissions.
 
+### Phase 5 — Tour Packages, Departures & Itinerary Editor *(Completed)*
+- [x] Installed self-hosted `jodit` (MIT Community Edition) via npm, published local assets to `public/vendor/jodit/`, and built reusable Filament `JoditEditor` field with server-side HTML sanitization.
+- [x] Reversible migration for `tours`, `tour_destinations`, `tour_itinerary_days`, `tour_stays`, and `tour_departures`.
+- [x] `TourCatalogService`, `TourSearchService`, `TourPolicy`, and Filament 5 `TourResource` (draft/publish/archive lifecycle, publish-readiness validation, chronological itinerary & passenger cap validation, `Request Quote` fallback never `$0`, automatic 301 redirects on slug change).
+- [x] Public `/tours` multi-facet catalog, `/tours/{slug}` detail page with date/departure/guest booking-entry validator, and live related-tours integration on `/destinations/{slug}`.
+- [x] Seeded 4 sample tours across Sightseeing, Trekking, Honeymoon, and Custom Quote categories via `SampleToursSeeder`.
+- [x] Phase 5 feature tests covering bad data rejection, publish readiness, XSS sanitization, permissions, public filtering, and booking-entry constraints.
+
 ## Upcoming Phases
-- Phase 5: Tour packages, departures and itinerary editor
-- Phases 6–14: Tour-Only Hotels, Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phase 6: Lightweight hotels offered ONLY within tours
+- Phases 7–14: Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

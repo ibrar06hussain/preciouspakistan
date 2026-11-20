@@ -25,6 +25,8 @@ use App\Modules\Rbac\Policies\AdminInvitationPolicy;
 use App\Modules\Rbac\Policies\AuditLogPolicy;
 use App\Modules\Rbac\Policies\RolePolicy;
 use App\Modules\Rbac\Policies\UserPolicy;
+use App\Modules\Tours\Models\Tour;
+use App\Modules\Tours\Policies\TourPolicy;
 use App\Shared\Support\DisplayTimezone;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -63,6 +65,7 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(District::class, DestinationModulePolicy::class);
         Gate::policy(Destination::class, DestinationModulePolicy::class);
         Gate::policy(Attraction::class, DestinationModulePolicy::class);
+        Gate::policy(Tour::class, TourPolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);

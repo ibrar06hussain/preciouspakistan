@@ -5,8 +5,10 @@ namespace App\Modules\Destinations\Services;
 use App\Modules\Destinations\Models\Attraction;
 use App\Modules\Destinations\Models\Destination;
 use App\Modules\Destinations\Models\Region;
+use App\Modules\Tours\Models\Tour;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 
 final class GeoSearchService
 {
@@ -162,14 +164,23 @@ final class GeoSearchService
     }
 
     /**
-     * Integration hook for Phase 5 Tours module.
-     * Returns live related tours once Tours catalog is introduced; returns empty collection safely before then.
+     * Returns live published tours linked to the given destination.
      *
-     * @return Collection<int, mixed>
+     * @return Collection<int, Tour>
      */
     public function relatedToursForDestination(Destination $destination): Collection
     {
-        return collect();
+        if (! Schema::hasTable('tours')) {
+            return collect();
+        }
+
+        return Tour::query()
+            ->where('status', Tour::STATUS_PUBLISHED)
+            ->whereHas('destinations', fn (Builder $q) => $q->where('geo_destinations.id', $destination->id))
+            ->orderByDesc('is_featured')
+            ->orderBy('title')
+            ->limit(6)
+            ->get();
     }
 
     public function haversineKm(float $lat1, float $lon1, float $lat2, float $lon2): float

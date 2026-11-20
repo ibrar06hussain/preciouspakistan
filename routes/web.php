@@ -3,6 +3,7 @@
 use App\Modules\Cms\Http\Controllers\PublicPageController;
 use App\Modules\Destinations\Http\Controllers\PublicDestinationController;
 use App\Modules\Identity\Http\Controllers\CustomerDashboardController;
+use App\Modules\Tours\Http\Controllers\PublicTourController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicPageController::class, 'home'])->name('home');
@@ -13,6 +14,12 @@ Route::get('/destinations/{slug}', [PublicDestinationController::class, 'showDes
 Route::get('/api/geo/features', [PublicDestinationController::class, 'geoJson'])
     ->middleware('throttle:api')
     ->name('geo.features');
+
+Route::get('/tours', [PublicTourController::class, 'index'])->name('tours.index');
+Route::get('/tours/{slug}', [PublicTourController::class, 'show'])->name('tours.show');
+Route::post('/tours/{slug}/booking-entry', [PublicTourController::class, 'submitBookingEntry'])
+    ->middleware('throttle:cms-contact')
+    ->name('tours.booking-entry');
 
 Route::post('/cms/contact', [PublicPageController::class, 'submitContact'])
     ->middleware('throttle:cms-contact')
