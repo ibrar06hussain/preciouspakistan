@@ -16,6 +16,7 @@ use App\Modules\Destinations\Models\Attraction;
 use App\Modules\Destinations\Models\Destination;
 use App\Modules\Destinations\Models\District;
 use App\Modules\Destinations\Models\Region;
+use App\Modules\Destinations\Models\UrlRedirect;
 use App\Modules\Destinations\Policies\DestinationModulePolicy;
 use App\Modules\Finance\Contracts\PaymentGatewayAdapter;
 use App\Modules\Finance\Models\FxRateSnapshot;
@@ -35,6 +36,10 @@ use App\Modules\Identity\Models\AdminInvitation;
 use App\Modules\Identity\Policies\AdminAccessPolicy;
 use App\Modules\Identity\Policies\CustomerAccessPolicy;
 use App\Modules\Identity\Services\NullMfaProvider;
+use App\Modules\Media\Contracts\VirusScanner;
+use App\Modules\Media\Models\MediaAsset;
+use App\Modules\Media\Policies\MediaAssetPolicy;
+use App\Modules\Media\Services\NullVirusScanner;
 use App\Modules\Nomads\Models\NomadLocation;
 use App\Modules\Nomads\Policies\NomadPolicy;
 use App\Modules\Rbac\Models\AuditLog;
@@ -42,6 +47,7 @@ use App\Modules\Rbac\Policies\AdminInvitationPolicy;
 use App\Modules\Rbac\Policies\AuditLogPolicy;
 use App\Modules\Rbac\Policies\RolePolicy;
 use App\Modules\Rbac\Policies\UserPolicy;
+use App\Modules\Seo\Policies\SeoPolicy;
 use App\Modules\Tours\Models\Tour;
 use App\Modules\Tours\Policies\TourPolicy;
 use App\Shared\Support\DisplayTimezone;
@@ -61,6 +67,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(SiteSettingsService::class);
         $this->app->bind(MfaProvider::class, NullMfaProvider::class);
         $this->app->bind(PaymentGatewayAdapter::class, DisabledPaymentGatewayAdapter::class);
+        $this->app->bind(VirusScanner::class, NullVirusScanner::class);
     }
 
     public function boot(): void
@@ -92,6 +99,8 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(Booking::class, BookingPolicy::class);
         Gate::policy(Invoice::class, InvoicePolicy::class);
         Gate::policy(FxRateSnapshot::class, FxRatePolicy::class);
+        Gate::policy(MediaAsset::class, MediaAssetPolicy::class);
+        Gate::policy(UrlRedirect::class, SeoPolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);

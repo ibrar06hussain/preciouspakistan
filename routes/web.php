@@ -7,7 +7,9 @@ use App\Modules\Finance\Http\Controllers\InvoicePublicController;
 use App\Modules\Fleet\Http\Controllers\PublicFleetController;
 use App\Modules\Hotels\Http\Controllers\PublicHotelInfoController;
 use App\Modules\Identity\Http\Controllers\CustomerDashboardController;
+use App\Modules\Media\Http\Controllers\JoditMediaController;
 use App\Modules\Nomads\Http\Controllers\PublicNomadController;
+use App\Modules\Seo\Http\Controllers\SeoPublicController;
 use App\Modules\Tours\Http\Controllers\PublicTourController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,9 +48,19 @@ Route::post('/cms/contact', [PublicPageController::class, 'submitContact'])
     ->middleware('throttle:cms-contact')
     ->name('cms.contact.submit');
 
+Route::get('/sitemap.xml', [SeoPublicController::class, 'sitemap'])->name('seo.sitemap');
+Route::get('/robots.txt', [SeoPublicController::class, 'robots'])->name('seo.robots');
+
 Route::middleware(['auth', 'active', 'can:cms.view'])
     ->get('/cms/preview/{page}', [PublicPageController::class, 'preview'])
     ->name('cms.pages.preview');
+
+Route::middleware(['auth', 'active'])
+    ->prefix('admin/media')
+    ->group(function (): void {
+        Route::post('/jodit-upload', [JoditMediaController::class, 'upload'])->name('admin.media.jodit-upload');
+        Route::get('/jodit-browse', [JoditMediaController::class, 'browse'])->name('admin.media.jodit-browse');
+    });
 
 Route::middleware(['auth', 'active', 'verified', 'customer'])
     ->group(function (): void {

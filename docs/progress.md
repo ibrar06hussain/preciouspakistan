@@ -79,5 +79,11 @@
 - [x] Non-PII public QR verification route (`/verify/invoice/{token}`), authorized PDF download (`/invoices/{invoice}/pdf`), `InvoicePolicy`/`FxRatePolicy`, and Filament 5 `InvoiceResource` & `FxRateSnapshotResource`.
 - [x] Verified with `tests/Feature/Phase10/FinanceInvoiceTest.php`.
 
+### Phase 11 — Jodit WYSIWYG Media Library (WebP/AVIF) & Tourism SEO *(Completed)*
+- [x] Reversible migration for `media_assets`, `media_usages`, and `seo_metadata`.
+- [x] `MediaLibraryService` (MIME/size validation, `VirusScanner`/`NullVirusScanner` hook, SHA-256 deduplication, GD WebP + AVIF + responsive thumbnails `400/800/1440`, reference-deletion guard) and authenticated Jodit endpoints (`/admin/media/jodit-upload`, `/admin/media/jodit-browse`).
+- [x] `SeoService` (truthful `TravelAgency`/`TouristDestination`/`TouristTrip`/`BreadcrumbList`/`FAQPage` JSON-LD with zero fake review stars, dynamic `/sitemap.xml` excluding drafts & `noindex`, `/robots.txt`, SEO/alt-text auditor).
+- [x] Filament 5 `MediaAssetResource`, `UrlRedirectResource`, and `SeoAuditPage`; verified with `tests/Feature/Phase11/MediaAndSeoTest.php`.
+
 ## Upcoming Phases
-- Phases 11–14: Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phases 12–14: Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
