@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Destinations\Http\Middleware\HandleUrlRedirects;
 use App\Modules\Identity\Http\Middleware\EnsureActiveUser;
 use App\Modules\Identity\Http\Middleware\EnsureCustomerAccount;
 use Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests;
@@ -21,6 +22,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'active' => EnsureActiveUser::class,
             'customer' => EnsureCustomerAccount::class,
+        ]);
+
+        $middleware->web(prepend: [
+            HandleUrlRedirects::class,
         ]);
 
         $middleware->prependToPriorityList(

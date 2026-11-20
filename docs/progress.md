@@ -28,6 +28,14 @@
 - [x] Seeded default published pages (`/` homepage, `/about`, `/contact`, `/terms`, `/privacy`, `/faqs`) and dynamic header/mobile/footer menus via `CmsDefaultPagesSeeder`.
 - [x] Phase 3 feature tests covering draft isolation, publish/schedule cache invalidation, version history undo, XSS/PHP/Blade sanitization, RBAC permissions, and seeded pages.
 
+### Phase 4 — Pakistan Destinations and Geographic Search *(Completed)*
+- [x] Installed `leaflet` via npm and wired Vite Leaflet.js interactive maps (`[data-leaflet-map]`).
+- [x] Reversible migrations for `geo_countries`, `geo_regions`, `geo_districts`, `geo_destinations`, `geo_attractions`, and `url_redirects`.
+- [x] `DestinationHierarchyService` (strict parent region/district validation, slug validation, automatic 301 redirects with chain collapse), `GeoSearchService` (filters, Haversine nearby attractions, RFC 7946 GeoJSON), and `HandleUrlRedirects` middleware.
+- [x] Seeded Pakistan, all 7 required top-level regions, all 22 required destination examples, and 16 authentic attractions via `PakistanDestinationsSeeder` with explicit non-exhaustive subset disclosure.
+- [x] Public routes (`/destinations`, `/regions/{slug}`, `/destinations/{slug}`, `/api/geo/features`) and Filament 5 CRUD (`RegionResource`, `DistrictResource`, `DestinationResource`, `AttractionResource`) with full SEO fields.
+- [x] Phase 4 feature tests for hierarchy validation, automatic 301 redirects, geographic search, GeoJSON API, and RBAC permissions.
+
 ## Upcoming Phases
-- Phase 4: Pakistan destinations and geographic search
-- Phases 5–14: Tours, Tour-Only Hotels, Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phase 5: Tour packages, departures and itinerary editor
+- Phases 6–14: Tour-Only Hotels, Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             RbacSeeder::class,
             SiteBootstrapSeeder::class,
             CmsDefaultPagesSeeder::class,
+            PakistanDestinationsSeeder::class,
         ]);
     }
 }

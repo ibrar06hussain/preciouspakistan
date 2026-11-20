@@ -37,8 +37,8 @@ class CmsDefaultPagesSeeder extends Seeder
                 'name' => 'Header Primary Navigation',
                 'items' => [
                     ['label' => 'Home', 'url' => '/'],
+                    ['label' => 'Destinations', 'url' => '/destinations'],
                     ['label' => 'About', 'url' => '/about'],
-                    ['label' => 'Destinations', 'url' => '/#regions'],
                     ['label' => 'FAQs', 'url' => '/faqs'],
                     ['label' => 'Contact', 'url' => '/contact'],
                 ],
@@ -47,7 +47,7 @@ class CmsDefaultPagesSeeder extends Seeder
                 'name' => 'Mobile Drawer Navigation',
                 'items' => [
                     ['label' => 'Home', 'url' => '/'],
-                    ['label' => 'Destinations', 'url' => '/#regions'],
+                    ['label' => 'Destinations', 'url' => '/destinations'],
                     ['label' => 'About Us', 'url' => '/about'],
                     ['label' => 'FAQs', 'url' => '/faqs'],
                     ['label' => 'Contact & Quote', 'url' => '/contact'],

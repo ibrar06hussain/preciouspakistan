@@ -10,6 +10,11 @@ use App\Modules\Cms\Policies\CmsPagePolicy;
 use App\Modules\Cms\Services\MenuService;
 use App\Modules\Cms\Services\SiteSettingsService;
 use App\Modules\Cms\Support\ThemePresets;
+use App\Modules\Destinations\Models\Attraction;
+use App\Modules\Destinations\Models\Destination;
+use App\Modules\Destinations\Models\District;
+use App\Modules\Destinations\Models\Region;
+use App\Modules\Destinations\Policies\DestinationModulePolicy;
 use App\Modules\Identity\Contracts\MfaProvider;
 use App\Modules\Identity\Models\AdminInvitation;
 use App\Modules\Identity\Policies\AdminAccessPolicy;
@@ -54,6 +59,10 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(AuditLog::class, AuditLogPolicy::class);
         Gate::policy(CmsPage::class, CmsPagePolicy::class);
         Gate::policy(CmsMenu::class, CmsMenuPolicy::class);
+        Gate::policy(Region::class, DestinationModulePolicy::class);
+        Gate::policy(District::class, DestinationModulePolicy::class);
+        Gate::policy(Destination::class, DestinationModulePolicy::class);
+        Gate::policy(Attraction::class, DestinationModulePolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);
