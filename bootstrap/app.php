@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'customer' => EnsureCustomerAccount::class,
         ]);
 
-        $middleware->web(prepend: [
+        $middleware->prepend([
             HandleUrlRedirects::class,
         ]);
 

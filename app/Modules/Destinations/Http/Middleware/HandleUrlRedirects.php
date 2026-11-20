@@ -16,7 +16,8 @@ class HandleUrlRedirects
             return $next($request);
         }
 
-        $path = '/'.ltrim(strtolower($request->getPathInfo()), '/');
+        $trimmed = trim(strtolower($request->getPathInfo()), '/');
+        $path = $trimmed === '' ? '/' : '/'.$trimmed;
 
         if ($path === '/' || str_starts_with($path, '/admin') || str_starts_with($path, '/livewire')) {
             return $next($request);

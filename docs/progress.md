@@ -97,5 +97,11 @@
 - [x] Safe PWA manifest (`public/manifest.webmanifest`) and Service Worker (`public/sw.js`) strictly limited to user-triggered offline itinerary reading while bypassing `/admin`, `/dashboard`, auth, invoices, and all non-GET mutations.
 - [x] Verified with `tests/Feature/Phase13/PwaAndDashboardsTest.php`.
 
-## Upcoming Phases
-- Phase 14: Non-Destructive WordPress Migration & Hostinger VPS Production Deployment
+### Phase 14 — Non-Destructive WordPress Migration & Hostinger VPS Deployment *(Completed)*
+- [x] Reversible migration for `wordpress_import_batches` and `wordpress_import_items`.
+- [x] `WordPressImportService` and `php artisan wp:import {source} {--dry-run} {--rollback=}` supporting read-only authorized local WXR XML / JSON exports, dry-run reporting, idempotent deduplication, HTML sanitization, automatic 301 redirect creation, editorial review flags, and clean batch-scoped rollback.
+- [x] Production playbooks & documentation: `docs/deployment-hostinger-vps.md`, `docs/wordpress-migration.md`, `docs/admin-guide.md`, and `docs/acceptance-checklist.md`.
+- [x] Verified with `tests/Feature/Phase14/WordPressMigrationTest.php` and full 14-phase regression suite.
+
+## Status
+- **All 14 Phases Complete** — Ready for staging UAT, official media/branding upload, and Hostinger VPS production cutover.
