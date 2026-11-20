@@ -3,6 +3,7 @@
 use App\Modules\Booking\Http\Controllers\PublicBookingController;
 use App\Modules\Cms\Http\Controllers\PublicPageController;
 use App\Modules\Destinations\Http\Controllers\PublicDestinationController;
+use App\Modules\Finance\Http\Controllers\InvoicePublicController;
 use App\Modules\Fleet\Http\Controllers\PublicFleetController;
 use App\Modules\Hotels\Http\Controllers\PublicHotelInfoController;
 use App\Modules\Identity\Http\Controllers\CustomerDashboardController;
@@ -35,6 +36,11 @@ Route::get('/hotels/{slug}', [PublicHotelInfoController::class, 'show'])->name('
 
 Route::get('/fleet', [PublicFleetController::class, 'index'])->name('fleet.index');
 Route::get('/digital-nomads', [PublicNomadController::class, 'index'])->name('nomads.index');
+
+Route::get('/verify/invoice/{token}', [InvoicePublicController::class, 'verify'])->name('invoices.verify');
+Route::middleware(['auth', 'active'])
+    ->get('/invoices/{invoice}/pdf', [InvoicePublicController::class, 'downloadPdf'])
+    ->name('invoices.pdf');
 
 Route::post('/cms/contact', [PublicPageController::class, 'submitContact'])
     ->middleware('throttle:cms-contact')

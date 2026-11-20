@@ -72,5 +72,12 @@
 - [x] Public booking flow (`/tours/{slug}/book`, `/bookings/{reference}/confirmation`), `BookingPolicy`, and Filament 5 `BookingResource`.
 - [x] Verified with `tests/Feature/Phase9/BookingEngineTest.php`.
 
+### Phase 10 — PKR/USD Quotations, Immutable Invoices & Finance *(Completed)*
+- [x] Installed `barryvdh/laravel-dompdf` (`v3.1.2`); leveraged installed `chillerlan/php-qrcode` (`v5.0.5`) for invoice authenticity QR codes.
+- [x] Reversible migration for `fx_rate_snapshots`, `invoices`, `invoice_items`, `invoice_payments`, `credit_notes`, and `invoice_events`.
+- [x] `InvoiceService` (FX recording with source/timestamp, sequential `PP-INV`/`PP-RCT`/`PP-CN` numbering, model-enforced immutability after issue, manual bank transfer receipts syncing only `payment_status`, credit notes, audited voiding), `InvoicePdfService`, and `DisabledPaymentGatewayAdapter` (explicitly disabled until merchant credentials are authorized).
+- [x] Non-PII public QR verification route (`/verify/invoice/{token}`), authorized PDF download (`/invoices/{invoice}/pdf`), `InvoicePolicy`/`FxRatePolicy`, and Filament 5 `InvoiceResource` & `FxRateSnapshotResource`.
+- [x] Verified with `tests/Feature/Phase10/FinanceInvoiceTest.php`.
+
 ## Upcoming Phases
-- Phases 10–14: Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phases 11–14: Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

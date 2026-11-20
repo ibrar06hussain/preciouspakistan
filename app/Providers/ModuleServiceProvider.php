@@ -17,6 +17,12 @@ use App\Modules\Destinations\Models\Destination;
 use App\Modules\Destinations\Models\District;
 use App\Modules\Destinations\Models\Region;
 use App\Modules\Destinations\Policies\DestinationModulePolicy;
+use App\Modules\Finance\Contracts\PaymentGatewayAdapter;
+use App\Modules\Finance\Models\FxRateSnapshot;
+use App\Modules\Finance\Models\Invoice;
+use App\Modules\Finance\Policies\FxRatePolicy;
+use App\Modules\Finance\Policies\InvoicePolicy;
+use App\Modules\Finance\Services\DisabledPaymentGatewayAdapter;
 use App\Modules\Fleet\Models\Vehicle;
 use App\Modules\Fleet\Models\VehicleReservation;
 use App\Modules\Fleet\Policies\VehiclePolicy;
@@ -54,6 +60,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->app->singleton(SiteSettingsService::class);
         $this->app->bind(MfaProvider::class, NullMfaProvider::class);
+        $this->app->bind(PaymentGatewayAdapter::class, DisabledPaymentGatewayAdapter::class);
     }
 
     public function boot(): void
@@ -83,6 +90,8 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(VehicleReservation::class, VehiclePolicy::class);
         Gate::policy(NomadLocation::class, NomadPolicy::class);
         Gate::policy(Booking::class, BookingPolicy::class);
+        Gate::policy(Invoice::class, InvoicePolicy::class);
+        Gate::policy(FxRateSnapshot::class, FxRatePolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);
