@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             PakistanDestinationsSeeder::class,
             SampleToursSeeder::class,
             SampleHotelsSeeder::class,
+            SampleFleetSeeder::class,
         ]);
     }
 }

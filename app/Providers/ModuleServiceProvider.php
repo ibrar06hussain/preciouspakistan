@@ -15,6 +15,9 @@ use App\Modules\Destinations\Models\Destination;
 use App\Modules\Destinations\Models\District;
 use App\Modules\Destinations\Models\Region;
 use App\Modules\Destinations\Policies\DestinationModulePolicy;
+use App\Modules\Fleet\Models\Vehicle;
+use App\Modules\Fleet\Models\VehicleReservation;
+use App\Modules\Fleet\Policies\VehiclePolicy;
 use App\Modules\Hotels\Models\Hotel;
 use App\Modules\Hotels\Models\HotelAvailabilityVerification;
 use App\Modules\Hotels\Policies\HotelPolicy;
@@ -72,6 +75,8 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(Tour::class, TourPolicy::class);
         Gate::policy(Hotel::class, HotelPolicy::class);
         Gate::policy(HotelAvailabilityVerification::class, HotelVerificationPolicy::class);
+        Gate::policy(Vehicle::class, VehiclePolicy::class);
+        Gate::policy(VehicleReservation::class, VehiclePolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);

@@ -52,6 +52,14 @@
 - [x] Seeded 5 sample tour-only hotels linked to seeded tour stays via `SampleHotelsSeeder`.
 - [x] Phase 6 feature tests covering unrelated hotel rejection, impossible occupancy, missing rate, cross-season proration, base-lodging upgrade delta, external verification confirmation gate, and RBAC permissions.
 
+### Phase 7 — Fleet, Drivers & Seasonal Vehicle Pricing *(Completed)*
+- [x] Reversible migrations for `vehicles`, `vehicle_driver_assignments`, `vehicle_seasonal_rates`, `vehicle_route_adjustments`, `vehicle_blackouts`, and `vehicle_reservations`.
+- [x] `VehiclePricingService` (standalone, exact `bcmath` DECIMAL daily proration across seasons/years, `driver_included: true` & `driver_charge: '0.00'` always, `with_fuel` vs `without_fuel`, single highest-specificity route adjustment on `with_fuel` only, immutable quote lines).
+- [x] `VehicleAvailabilityService` (`lockForUpdate()` concurrency-safe holds/confirmations/releases, blackout checks, party-size & route-suitability filtering) and `FleetCatalogService` (rate-permission gated, overlap rejection, copy-rates-to-next-year).
+- [x] Public `/fleet` showcase (hiding private registration numbers & driver phone numbers) and Filament 5 `VehicleResource` + `VehicleReservationResource`.
+- [x] Seeded 3 sample company vehicles with driver assignments, dual fuel rates, and northern route adjustments via `SampleFleetSeeder`.
+- [x] Phase 7 feature tests covering cross-season/cross-year proration, route adjustments, zero driver/fuel double-charging, concurrent hold conflict prevention, privacy, and RBAC permissions.
+
 ## Upcoming Phases
-- Phase 7: Fleet, drivers and seasonal vehicle pricing
-- Phases 8–14: Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phase 8: Digital Nomad tour add-ons
+- Phases 9–14: Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

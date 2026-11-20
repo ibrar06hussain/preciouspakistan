@@ -2,6 +2,7 @@
 
 use App\Modules\Cms\Http\Controllers\PublicPageController;
 use App\Modules\Destinations\Http\Controllers\PublicDestinationController;
+use App\Modules\Fleet\Http\Controllers\PublicFleetController;
 use App\Modules\Hotels\Http\Controllers\PublicHotelInfoController;
 use App\Modules\Identity\Http\Controllers\CustomerDashboardController;
 use App\Modules\Tours\Http\Controllers\PublicTourController;
@@ -25,6 +26,8 @@ Route::post('/tours/{slug}/booking-entry', [PublicTourController::class, 'submit
 // Informational-only hotel detail page linking to eligible tours (NO standalone checkout).
 Route::get('/hotels/{slug}', [PublicHotelInfoController::class, 'show'])->name('hotels.show');
 
+Route::get('/fleet', [PublicFleetController::class, 'index'])->name('fleet.index');
+
 Route::post('/cms/contact', [PublicPageController::class, 'submitContact'])
     ->middleware('throttle:cms-contact')
     ->name('cms.contact.submit');
@@ -41,5 +44,5 @@ Route::middleware(['auth', 'active', 'verified', 'customer'])
 // Published dynamic CMS pages (e.g. /about, /contact, /terms, /privacy, /faqs).
 // Explicitly excludes reserved application prefixes so domain, auth, admin, and API routes are never shadowed.
 Route::get('/{slug}', [PublicPageController::class, 'show'])
-    ->where('slug', '^(?!(?:admin|api|dashboard|destinations|regions|tours|hotels|login|logout|register|forgot-password|reset-password|verify-email|email|cms|livewire|storage|up)(?:/|$))[a-z0-9]+(?:-[a-z0-9]+)*$')
+    ->where('slug', '^(?!(?:admin|api|dashboard|destinations|regions|tours|hotels|fleet|login|logout|register|forgot-password|reset-password|verify-email|email|cms|livewire|storage|up)(?:/|$))[a-z0-9]+(?:-[a-z0-9]+)*$')
     ->name('cms.pages.show');
