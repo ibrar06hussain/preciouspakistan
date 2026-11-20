@@ -13,7 +13,13 @@
 - [x] Brand design system, reusable Blade UI components (`x-ui.*`), DB-backed responsive public shell, branded Filament 5 admin shell.
 - [x] Phase 1 automated feature & unit tests (22 tests), Pint formatting, Vite build, checkpoint commit.
 
+### Phase 2 — Dynamic RBAC and Audit Trail *(Completed)*
+- [x] `audit_logs` immutable append-only migration + `AuditLog` model (blocks update/delete) + `AuditLogger`.
+- [x] `RbacCatalog` & `RbacSeeder`: 11 initial roles (`Super Admin`, `Administrator`, `Tour Manager`, `Booking Officer`, `Hotel/Accommodation Manager`, `Fleet Manager`, `Digital Nomad Manager`, `Finance Officer`, `Content/SEO Manager`, `Customer Support`, `Customer`) and 42 granular permissions; `Hotel Partner` strictly forbidden.
+- [x] `PrivilegeGuard`, `UserManagementService`, `RoleManagementService`, updated `AdminInvitationService` (with revocation & auditing), and server-side Policies (`UserPolicy`, `RolePolicy`, `AdminInvitationPolicy`, `AuditLogPolicy`).
+- [x] Filament 5 CRUD resources: `UserResource` (with search/filters, activate/deactivate, direct & role-derived **User Permissions Preview**), `RoleResource`, `AdminInvitationResource`, `AuditLogResource`.
+- [x] Phase 2 feature tests covering cross-role denial, privilege escalation prevention, last active Super Admin guard, permission breakdown, and audit trail immutability.
+
 ## Upcoming Phases
-- Phase 2: Dynamic RBAC and audit trail
 - Phase 3: Dynamic CMS and visual page builder
 - Phases 4–14: Destinations, Tours, Tour-Only Hotels, Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

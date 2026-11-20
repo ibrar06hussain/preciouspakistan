@@ -4,9 +4,11 @@ namespace App\Modules\Identity\Services;
 
 use App\Models\User;
 use App\Modules\Identity\Enums\AccountType;
+use App\Modules\Rbac\Support\RbacCatalog;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use RuntimeException;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 final class SuperAdminInstallerService
@@ -82,7 +84,12 @@ final class SuperAdminInstallerService
         }
 
         return DB::transaction(function () use ($name, $email, $password): User {
+            foreach (RbacCatalog::allPermissions() as $permissionName) {
+                Permission::findOrCreate($permissionName, 'web');
+            }
+
             $role = Role::findOrCreate(self::SUPER_ADMIN_ROLE, 'web');
+            $role->syncPermissions(RbacCatalog::allPermissions());
 
             $user = User::query()->create([
                 'name' => $name,

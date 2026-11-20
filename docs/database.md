@@ -16,4 +16,5 @@
 | `jobs` / `job_batches` / `failed_jobs` | Database queue driver fallback | `queue` (indexed), `uuid` (unique) |
 | `admin_invitations` | Secure staff onboarding invitations | `email` (indexed), `role_name`, `token_hash` (SHA-256, unique), `invited_by` (FK -> `users.id`), `expires_at` (indexed), `accepted_at`, `revoked_at` |
 | `site_settings` | Database-backed public shell & site configuration | `group` (indexed), `key` (unique), `value`, `value_type`, `is_public` (indexed) |
-| `permissions`, `roles`, `model_has_permissions`, `model_has_roles`, `role_has_permissions` | Spatie Permission v8 tables (published in Phase 1, expanded with full CRUD & audit trail in Phase 2) | Standard Spatie indexes & composite keys |
+| `permissions`, `roles`, `model_has_permissions`, `model_has_roles`, `role_has_permissions` | Spatie Permission v8 tables seeded with 11 initial roles and granular module permissions | Standard Spatie indexes & composite keys |
+| `audit_logs` *(Phase 2)* | Immutable append-only RBAC & account security audit trail | `actor_id` (FK -> `users.id`), `event` (indexed), `auditable_type`+`auditable_id` (composite index), `target_user_id` (FK -> `users.id`), `summary`, `before_state` (JSON), `after_state` (JSON), `ip_address`, `user_agent`, `created_at` (indexed) |

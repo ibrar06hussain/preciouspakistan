@@ -2,11 +2,18 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Modules\Cms\Services\SiteSettingsService;
 use App\Modules\Identity\Contracts\MfaProvider;
+use App\Modules\Identity\Models\AdminInvitation;
 use App\Modules\Identity\Policies\AdminAccessPolicy;
 use App\Modules\Identity\Policies\CustomerAccessPolicy;
 use App\Modules\Identity\Services\NullMfaProvider;
+use App\Modules\Rbac\Models\AuditLog;
+use App\Modules\Rbac\Policies\AdminInvitationPolicy;
+use App\Modules\Rbac\Policies\AuditLogPolicy;
+use App\Modules\Rbac\Policies\RolePolicy;
+use App\Modules\Rbac\Policies\UserPolicy;
 use App\Shared\Support\DisplayTimezone;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -15,6 +22,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Permission\Models\Role;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -34,6 +42,11 @@ class ModuleServiceProvider extends ServiceProvider
 
     private function configureGates(): void
     {
+        Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Role::class, RolePolicy::class);
+        Gate::policy(AdminInvitation::class, AdminInvitationPolicy::class);
+        Gate::policy(AuditLog::class, AuditLogPolicy::class);
+
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);
         Gate::define('accessCustomerDashboard', [CustomerAccessPolicy::class, 'accessDashboard']);
@@ -78,7 +91,6 @@ class ModuleServiceProvider extends ServiceProvider
             return "<?php echo e(\\App\\Shared\\Support\\DisplayTimezone::format({$expression})); ?>";
         });
 
-        // Verify DisplayTimezone class is autoloadable early.
         DisplayTimezone::timezone();
     }
 }
