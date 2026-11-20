@@ -66,5 +66,11 @@
 - [x] Public `/digital-nomads` showcase highlighting work-friendly hubs as tour add-ons with transparent power/connectivity caveats, plus Filament 5 `NomadLocationResource`.
 - [x] Seeded 3 sample Digital Nomad hubs (Islamabad, Hunza, Skardu) via `SampleNomadsSeeder` and verified with `tests/Feature/Phase8/DigitalNomadTourAddonTest.php`.
 
+### Phase 9 — Central Pricing, Booking Requests & Confirmation *(Completed)*
+- [x] Reversible migration for `booking_quotes`, `bookings`, `booking_items`, and `booking_events` with separate `booking_status` & `payment_status` columns and unique `idempotency_key` constraints.
+- [x] `CentralPricingService` (orchestrates Tour + Fleet + Tour-Only Hotels + Digital Nomad Add-ons + Extras + configurable tax using exact `bcmath` DECIMAL math and distinct vehicle days vs hotel nights) and `BookingWorkflowService` (idempotent submission, `lockForUpdate()` vehicle holds, external hotel verification confirmation gate, refund-required path).
+- [x] Public booking flow (`/tours/{slug}/book`, `/bookings/{reference}/confirmation`), `BookingPolicy`, and Filament 5 `BookingResource`.
+- [x] Verified with `tests/Feature/Phase9/BookingEngineTest.php`.
+
 ## Upcoming Phases
-- Phases 9–14: Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phases 10–14: Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

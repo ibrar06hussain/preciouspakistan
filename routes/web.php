@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Booking\Http\Controllers\PublicBookingController;
 use App\Modules\Cms\Http\Controllers\PublicPageController;
 use App\Modules\Destinations\Http\Controllers\PublicDestinationController;
 use App\Modules\Fleet\Http\Controllers\PublicFleetController;
@@ -20,6 +21,11 @@ Route::get('/api/geo/features', [PublicDestinationController::class, 'geoJson'])
 
 Route::get('/tours', [PublicTourController::class, 'index'])->name('tours.index');
 Route::get('/tours/{slug}', [PublicTourController::class, 'show'])->name('tours.show');
+Route::get('/tours/{slug}/book', [PublicBookingController::class, 'create'])->name('bookings.create');
+Route::post('/tours/{slug}/book', [PublicBookingController::class, 'store'])
+    ->middleware('throttle:cms-contact')
+    ->name('bookings.store');
+Route::get('/bookings/{reference}/confirmation', [PublicBookingController::class, 'confirmation'])->name('bookings.confirmation');
 Route::post('/tours/{slug}/booking-entry', [PublicTourController::class, 'submitBookingEntry'])
     ->middleware('throttle:cms-contact')
     ->name('tours.booking-entry');
@@ -46,5 +52,5 @@ Route::middleware(['auth', 'active', 'verified', 'customer'])
 // Published dynamic CMS pages (e.g. /about, /contact, /terms, /privacy, /faqs).
 // Explicitly excludes reserved application prefixes so domain, auth, admin, and API routes are never shadowed.
 Route::get('/{slug}', [PublicPageController::class, 'show'])
-    ->where('slug', '^(?!(?:admin|api|dashboard|destinations|regions|tours|hotels|fleet|digital-nomads|verify|login|logout|register|forgot-password|reset-password|verify-email|email|cms|livewire|storage|up)(?:/|$))[a-z0-9]+(?:-[a-z0-9]+)*$')
+    ->where('slug', '^(?!(?:admin|api|dashboard|destinations|regions|tours|bookings|hotels|fleet|digital-nomads|verify|sitemap\.xml|robots\.txt|login|logout|register|forgot-password|reset-password|verify-email|email|cms|livewire|storage|up)(?:/|$))[a-z0-9]+(?:-[a-z0-9]+)*$')
     ->name('cms.pages.show');

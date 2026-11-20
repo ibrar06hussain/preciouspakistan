@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Modules\Booking\Models\Booking;
+use App\Modules\Booking\Policies\BookingPolicy;
 use App\Modules\Cms\Models\CmsMenu;
 use App\Modules\Cms\Models\CmsPage;
 use App\Modules\Cms\Policies\CmsMenuPolicy;
@@ -80,6 +82,7 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(Vehicle::class, VehiclePolicy::class);
         Gate::policy(VehicleReservation::class, VehiclePolicy::class);
         Gate::policy(NomadLocation::class, NomadPolicy::class);
+        Gate::policy(Booking::class, BookingPolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);
