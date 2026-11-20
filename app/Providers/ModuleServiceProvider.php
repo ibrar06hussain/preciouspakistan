@@ -3,7 +3,13 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Modules\Cms\Models\CmsMenu;
+use App\Modules\Cms\Models\CmsPage;
+use App\Modules\Cms\Policies\CmsMenuPolicy;
+use App\Modules\Cms\Policies\CmsPagePolicy;
+use App\Modules\Cms\Services\MenuService;
 use App\Modules\Cms\Services\SiteSettingsService;
+use App\Modules\Cms\Support\ThemePresets;
 use App\Modules\Identity\Contracts\MfaProvider;
 use App\Modules\Identity\Models\AdminInvitation;
 use App\Modules\Identity\Policies\AdminAccessPolicy;
@@ -46,6 +52,8 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(AdminInvitation::class, AdminInvitationPolicy::class);
         Gate::policy(AuditLog::class, AuditLogPolicy::class);
+        Gate::policy(CmsPage::class, CmsPagePolicy::class);
+        Gate::policy(CmsMenu::class, CmsMenuPolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);
@@ -70,6 +78,10 @@ class ModuleServiceProvider extends ServiceProvider
             return Limit::perMinute((int) config('precious.rate_limits.password_reset_per_minute', 5))->by($key);
         });
 
+        RateLimiter::for('cms-contact', function (Request $request): Limit {
+            return Limit::perMinute(5)->by((string) $request->ip());
+        });
+
         RateLimiter::for('api', function (Request $request): Limit {
             return Limit::perMinute((int) config('precious.rate_limits.api_per_minute', 60))
                 ->by($request->user()?->id ?: $request->ip());
@@ -78,9 +90,22 @@ class ModuleServiceProvider extends ServiceProvider
 
     private function configureViewComposers(): void
     {
-        View::composer(['layouts.*', 'public.*', 'auth.*', 'customer.*', 'errors.*'], function (\Illuminate\View\View $view): void {
+        View::composer(['layouts.*', 'public.*', 'cms.*', 'auth.*', 'customer.*', 'errors.*'], function (\Illuminate\View\View $view): void {
             if (! array_key_exists('siteSettings', $view->getData())) {
-                $view->with('siteSettings', app(SiteSettingsService::class)->allPublic());
+                $settings = app(SiteSettingsService::class)->allPublic();
+                $view->with('siteSettings', $settings);
+                $view->with('themeColorPreset', ThemePresets::resolveColorPreset($settings['theme_color_preset'] ?? null));
+                $view->with('themeTypographyPreset', ThemePresets::resolveTypographyPreset($settings['theme_typography_preset'] ?? null));
+            }
+
+            if (! array_key_exists('cmsMenus', $view->getData())) {
+                $menuService = app(MenuService::class);
+                $view->with('cmsMenus', [
+                    'header' => $menuService->getItemsForLocation(CmsMenu::LOCATION_HEADER),
+                    'mobile' => $menuService->getItemsForLocation(CmsMenu::LOCATION_MOBILE),
+                    'footer_primary' => $menuService->getItemsForLocation(CmsMenu::LOCATION_FOOTER_PRIMARY),
+                    'footer_legal' => $menuService->getItemsForLocation(CmsMenu::LOCATION_FOOTER_LEGAL),
+                ]);
             }
         });
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed non-sensitive RBAC roles/permissions and bootstrap settings.
+     * Seed non-sensitive RBAC roles/permissions, bootstrap settings, and default CMS pages/menus.
      *
      * Note: The initial Super Admin is NEVER seeded with a hardcoded password.
      * Provision the first Super Admin securely using:
@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RbacSeeder::class,
             SiteBootstrapSeeder::class,
+            CmsDefaultPagesSeeder::class,
         ]);
     }
 }

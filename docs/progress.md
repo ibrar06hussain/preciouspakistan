@@ -20,6 +20,14 @@
 - [x] Filament 5 CRUD resources: `UserResource` (with search/filters, activate/deactivate, direct & role-derived **User Permissions Preview**), `RoleResource`, `AdminInvitationResource`, `AuditLogResource`.
 - [x] Phase 2 feature tests covering cross-role denial, privilege escalation prevention, last active Super Admin guard, permission breakdown, and audit trail immutability.
 
+### Phase 3 — Dynamic CMS and Visual Page Builder *(Completed)*
+- [x] Reversible CMS schema: `cms_pages`, `cms_page_versions`, `cms_page_sections`, `cms_menus`, `cms_menu_items`.
+- [x] `ComponentRegistry` (16 safe component types), `HtmlSanitizerService` (Symfony HTML Sanitizer + PHP/Blade/JS/URL rejection), and `ThemePresets`.
+- [x] `PageBuilderService`, `PageRendererService` (cached SSR + cache invalidation on publish), `MenuService`, `cms:publish-scheduled` command, and `CmsPagePolicy`/`CmsMenuPolicy`.
+- [x] Filament 5 CMS portal: `CmsPageResource` (visual repeater with reorder/clone/hide/device-visibility, Preview Draft, Publish, Schedule, Version History Undo), `CmsMenuResource`, and `SiteSettingsPage`.
+- [x] Seeded default published pages (`/` homepage, `/about`, `/contact`, `/terms`, `/privacy`, `/faqs`) and dynamic header/mobile/footer menus via `CmsDefaultPagesSeeder`.
+- [x] Phase 3 feature tests covering draft isolation, publish/schedule cache invalidation, version history undo, XSS/PHP/Blade sanitization, RBAC permissions, and seeded pages.
+
 ## Upcoming Phases
-- Phase 3: Dynamic CMS and visual page builder
-- Phases 4–14: Destinations, Tours, Tour-Only Hotels, Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phase 4: Pakistan destinations and geographic search
+- Phases 5–14: Tours, Tour-Only Hotels, Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
