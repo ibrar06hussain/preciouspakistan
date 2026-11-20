@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             SampleToursSeeder::class,
             SampleHotelsSeeder::class,
             SampleFleetSeeder::class,
+            SampleNomadsSeeder::class,
         ]);
     }
 }

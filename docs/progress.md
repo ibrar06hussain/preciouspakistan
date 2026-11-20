@@ -60,6 +60,11 @@
 - [x] Seeded 3 sample company vehicles with driver assignments, dual fuel rates, and northern route adjustments via `SampleFleetSeeder`.
 - [x] Phase 7 feature tests covering cross-season/cross-year proration, route adjustments, zero driver/fuel double-charging, concurrent hold conflict prevention, privacy, and RBAC permissions.
 
+### Phase 8 — Digital Nomad Tour Add-Ons *(Completed)*
+- [x] Reversible migration for `nomad_locations`, `nomad_facilities`, `nomad_seasonal_rates`, and `nomad_blackouts` with honest internet/power reliability disclosure fields.
+- [x] `NomadCatalogService`, `NomadPricingService` (exact `bcmath` hourly/daily/weekly/fixed seasonal pricing, blocks standalone checkout unless `config('precious.nomads.allow_standalone_booking')` is explicitly enabled), and `NomadPolicy`.
+- [x] Public `/digital-nomads` showcase highlighting work-friendly hubs as tour add-ons with transparent power/connectivity caveats, plus Filament 5 `NomadLocationResource`.
+- [x] Seeded 3 sample Digital Nomad hubs (Islamabad, Hunza, Skardu) via `SampleNomadsSeeder` and verified with `tests/Feature/Phase8/DigitalNomadTourAddonTest.php`.
+
 ## Upcoming Phases
-- Phase 8: Digital Nomad tour add-ons
 - Phases 9–14: Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

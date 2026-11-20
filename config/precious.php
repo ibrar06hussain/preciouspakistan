@@ -69,6 +69,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Digital Nomad & Booking Policy Settings
+    |--------------------------------------------------------------------------
+    */
+    'nomads' => [
+        'allow_standalone_booking' => (bool) env('PRECIOUS_NOMADS_ALLOW_STANDALONE', false),
+    ],
+
+    'booking' => [
+        'quote_expiry_minutes' => (int) env('PRECIOUS_QUOTE_EXPIRY_MINUTES', 60),
+        'vehicle_hold_minutes' => (int) env('PRECIOUS_VEHICLE_HOLD_MINUTES', 45),
+        'vehicle_rental_cutoff_hour_pkt' => 18,
+        'vehicle_grace_period_minutes' => 60,
+        'default_tax_rate_percent' => (string) env('PRECIOUS_DEFAULT_TAX_PERCENT', '0.00'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Fallback Brand Defaults (Used only when DB site_settings is unseeded)
     |--------------------------------------------------------------------------
     */

@@ -27,6 +27,8 @@ use App\Modules\Identity\Models\AdminInvitation;
 use App\Modules\Identity\Policies\AdminAccessPolicy;
 use App\Modules\Identity\Policies\CustomerAccessPolicy;
 use App\Modules\Identity\Services\NullMfaProvider;
+use App\Modules\Nomads\Models\NomadLocation;
+use App\Modules\Nomads\Policies\NomadPolicy;
 use App\Modules\Rbac\Models\AuditLog;
 use App\Modules\Rbac\Policies\AdminInvitationPolicy;
 use App\Modules\Rbac\Policies\AuditLogPolicy;
@@ -77,6 +79,7 @@ class ModuleServiceProvider extends ServiceProvider
         Gate::policy(HotelAvailabilityVerification::class, HotelVerificationPolicy::class);
         Gate::policy(Vehicle::class, VehiclePolicy::class);
         Gate::policy(VehicleReservation::class, VehiclePolicy::class);
+        Gate::policy(NomadLocation::class, NomadPolicy::class);
 
         Gate::define('accessAdminPanel', [AdminAccessPolicy::class, 'accessPanel']);
         Gate::define('inviteStaff', [AdminAccessPolicy::class, 'inviteStaff']);
