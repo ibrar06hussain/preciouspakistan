@@ -29,6 +29,7 @@ Route::post('/tours/{slug}/book', [PublicBookingController::class, 'store'])
     ->middleware('throttle:cms-contact')
     ->name('bookings.store');
 Route::get('/bookings/{reference}/confirmation', [PublicBookingController::class, 'confirmation'])->name('bookings.confirmation');
+Route::get('/bookings/{reference}/itinerary-offline', [PublicBookingController::class, 'offlineItinerary'])->name('bookings.itinerary-offline');
 Route::post('/tours/{slug}/booking-entry', [PublicTourController::class, 'submitBookingEntry'])
     ->middleware('throttle:cms-contact')
     ->name('tours.booking-entry');

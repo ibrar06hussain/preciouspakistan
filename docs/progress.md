@@ -91,5 +91,11 @@
 - [x] Filament 5 `SocialAccountResource`, `InquiryResource`, and `CommunicationChannelsPage`; seeded sample social links via `SampleSocialAccountsSeeder`.
 - [x] Verified with `tests/Feature/Phase12/CommunicationsTest.php`.
 
+### Phase 13 — Responsive PWA, Role-Scoped Dashboards & Quality *(Completed)*
+- [x] `DashboardMetricsService` powering role-scoped Admin Dashboard KPIs (with explicit sample-data banner and strict permission filtering).
+- [x] Upgraded Traveler Dashboard (`/dashboard`) showing live booking requests, issued PKR/USD invoices with PDF download, inquiries, and one-click offline itinerary download (`/bookings/{reference}/itinerary-offline`).
+- [x] Safe PWA manifest (`public/manifest.webmanifest`) and Service Worker (`public/sw.js`) strictly limited to user-triggered offline itinerary reading while bypassing `/admin`, `/dashboard`, auth, invoices, and all non-GET mutations.
+- [x] Verified with `tests/Feature/Phase13/PwaAndDashboardsTest.php`.
+
 ## Upcoming Phases
-- Phases 13–14: PWA/Dashboards & Quality, WordPress Migration & Hostinger VPS Deployment
+- Phase 14: Non-Destructive WordPress Migration & Hostinger VPS Production Deployment

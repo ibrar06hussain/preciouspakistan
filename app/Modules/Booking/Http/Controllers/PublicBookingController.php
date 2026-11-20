@@ -112,4 +112,14 @@ final class PublicBookingController extends Controller
 
         return view('bookings.confirmation', ['booking' => $booking]);
     }
+
+    public function offlineItinerary(string $reference): View
+    {
+        $booking = Booking::query()
+            ->where('booking_reference', $reference)
+            ->with(['tour.itineraryDays', 'tour.stays.destination', 'items'])
+            ->firstOrFail();
+
+        return view('bookings.itinerary-offline', ['booking' => $booking]);
+    }
 }

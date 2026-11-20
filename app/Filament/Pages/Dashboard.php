@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Modules\Booking\Services\DashboardMetricsService;
 use App\Modules\Identity\Contracts\MfaProvider;
 use App\Shared\Support\DisplayTimezone;
 use Filament\Pages\Dashboard as BaseDashboard;
@@ -23,6 +24,7 @@ class Dashboard extends BaseDashboard
             'displayNow' => DisplayTimezone::format(now()),
             'displayTimezone' => DisplayTimezone::timezone(),
             'mfaConfigured' => app(MfaProvider::class)->isConfigured(),
+            'kpi' => $user ? app(DashboardMetricsService::class)->forStaff($user) : ['includes_sample_data' => false, 'sections' => []],
         ];
     }
 }

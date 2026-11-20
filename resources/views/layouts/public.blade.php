@@ -34,9 +34,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', $brandName.' — '.$tagline)</title>
     <meta name="description" content="@yield('meta_description', $tagline)">
+    <meta name="theme-color" content="#047857">
+    <link rel="manifest" href="/manifest.webmanifest">
     @stack('head_meta')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased pb-16 md:pb-0 {{ $typographyPreset['body_class'] }}">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-amber-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">

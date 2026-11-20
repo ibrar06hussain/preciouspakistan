@@ -1,0 +1,10 @@
+{
+  "name": "Precious Pakistan — Pakistan Tourism Platform",
+  "short_name": "Precious PK",
+  "description": "Company-operated Pakistan tours, company fleet with driver included, curated destinations, and offline-readable itineraries.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#047857",
+  "icons": []
+}
