@@ -44,6 +44,14 @@
 - [x] Seeded 4 sample tours across Sightseeing, Trekking, Honeymoon, and Custom Quote categories via `SampleToursSeeder`.
 - [x] Phase 5 feature tests covering bad data rejection, publish readiness, XSS sanitization, permissions, public filtering, and booking-entry constraints.
 
+### Phase 6 — Lightweight Hotels Offered ONLY Within Tours *(Completed)*
+- [x] Reversible migrations for `hotels`, `hotel_room_types`, `hotel_room_rates`, `tour_stay_hotels`, and `hotel_availability_verifications` (no hotel room-inventory guarantee, no standalone booking, no hotel-partner login).
+- [x] `HotelCatalogService` (destination-scoped stay association, equal-priority seasonal rate overlap rejection, copy-rates-to-next-year), `HotelPricingService` (DECIMAL `bcmath` cross-season nightly proration + base-lodging upgrade delta math), and `HotelVerificationService` (external phone/email/WhatsApp verification gate & alternative-hotel workflow).
+- [x] Tour detail page (`/tours/{slug}`) displays eligible tour-only hotels & seasonal nightly rates per overnight stop; informational `/hotels/{slug}` page links back to eligible tours with explicit tour-only notice.
+- [x] Filament 5 `HotelResource` (with `JoditEditor` & Copy Rates to Next Year) and `HotelVerificationResource`.
+- [x] Seeded 5 sample tour-only hotels linked to seeded tour stays via `SampleHotelsSeeder`.
+- [x] Phase 6 feature tests covering unrelated hotel rejection, impossible occupancy, missing rate, cross-season proration, base-lodging upgrade delta, external verification confirmation gate, and RBAC permissions.
+
 ## Upcoming Phases
-- Phase 6: Lightweight hotels offered ONLY within tours
-- Phases 7–14: Fleet & Drivers, Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment
+- Phase 7: Fleet, drivers and seasonal vehicle pricing
+- Phases 8–14: Digital Nomads, Central Pricing/Booking, Finance/Invoices, Jodit/Media/SEO, Social/WhatsApp, PWA/Dashboards, WordPress Migration & VPS Deployment

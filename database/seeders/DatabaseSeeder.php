@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CmsDefaultPagesSeeder::class,
             PakistanDestinationsSeeder::class,
             SampleToursSeeder::class,
+            SampleHotelsSeeder::class,
         ]);
     }
 }

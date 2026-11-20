@@ -122,22 +122,64 @@
                 </div>
             </div>
 
-            {{-- Overnight Tour Stays --}}
+            {{-- Overnight Tour Stays & Tour-Only Hotel Options --}}
             @if ($tour->stays->isNotEmpty())
-                <x-ui.card class="space-y-4">
+                <x-ui.card class="space-y-5">
                     <div class="flex flex-wrap items-center justify-between gap-2">
-                        <h2 class="text-xl font-bold text-slate-900">Overnight Stops</h2>
-                        <x-ui.badge tone="slate">Tour-Only Verified Stays</x-ui.badge>
+                        <h2 class="text-xl font-bold text-slate-900">Overnight Stops &amp; Tour-Only Hotel Options</h2>
+                        <x-ui.badge tone="slate">External Verification Required</x-ui.badge>
                     </div>
-                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <p class="text-xs text-slate-600">
+                        Hotels below are offered exclusively as accommodation options within this tour. Our booking officers externally verify room availability before final confirmation.
+                        @if ($tour->includes_base_accommodation)
+                            <strong>Base package includes standard lodging; selecting an upgrade charges only the rate difference.</strong>
+                        @endif
+                    </p>
+                    <div class="space-y-4">
                         @foreach ($tour->stays as $stay)
-                            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-1">
-                                <p class="text-sm font-bold text-slate-900">{{ $stay->destination?->name }}</p>
-                                <p class="text-xs font-semibold text-emerald-800">
-                                    Check-in Day {{ $stay->check_in_day }} &bull; {{ $stay->nights_count }} {{ \Illuminate\Support\Str::plural('night', $stay->nights_count) }}
-                                </p>
+                            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                    <p class="text-sm font-bold text-slate-900">{{ $stay->destination?->name }}</p>
+                                    <p class="text-xs font-semibold text-emerald-800">
+                                        Check-in Day {{ $stay->check_in_day }} &bull; {{ $stay->nights_count }} {{ \Illuminate\Support\Str::plural('night', $stay->nights_count) }}
+                                    </p>
+                                </div>
                                 @if ($stay->notes)
                                     <p class="text-xs text-slate-600">{{ $stay->notes }}</p>
+                                @endif
+
+                                @if ($stay->stayHotels->isNotEmpty())
+                                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 pt-1">
+                                        @foreach ($stay->stayHotels as $stayHotel)
+                                            @if ($stayHotel->hotel)
+                                                <div class="rounded-lg border border-slate-200 bg-white p-3.5 space-y-2">
+                                                    <div class="flex items-center justify-between gap-2">
+                                                        <a href="{{ $stayHotel->hotel->publicInfoUrl() }}" class="text-sm font-bold text-slate-900 hover:text-emerald-800">
+                                                            {{ $stayHotel->hotel->name }}
+                                                        </a>
+                                                        <x-ui.badge tone="{{ $stayHotel->option_type === 'default' ? 'emerald' : 'amber' }}">
+                                                            {{ ucfirst($stayHotel->option_type) }}
+                                                        </x-ui.badge>
+                                                    </div>
+                                                    @if ($stayHotel->hotel->roomTypes->isNotEmpty())
+                                                        <ul class="space-y-1 text-xs text-slate-600">
+                                                            @foreach ($stayHotel->hotel->roomTypes as $rt)
+                                                                @php
+                                                                    $firstRate = $rt->rates->first();
+                                                                @endphp
+                                                                <li>
+                                                                    <strong>{{ $rt->name }}</strong> (max {{ $rt->max_occupancy }})
+                                                                    @if ($firstRate && $firstRate->nightly_rate_pkr)
+                                                                        &mdash; PKR {{ number_format((float) $firstRate->nightly_rate_pkr, 0) }}/night
+                                                                    @endif
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 @endif
                             </div>
                         @endforeach

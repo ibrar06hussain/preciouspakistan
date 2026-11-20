@@ -3,8 +3,10 @@
 namespace App\Modules\Tours\Models;
 
 use App\Modules\Destinations\Models\Destination;
+use App\Modules\Hotels\Models\TourStayHotel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TourStay extends Model
 {
@@ -34,5 +36,10 @@ class TourStay extends Model
     public function destination(): BelongsTo
     {
         return $this->belongsTo(Destination::class, 'destination_id');
+    }
+
+    public function stayHotels(): HasMany
+    {
+        return $this->hasMany(TourStayHotel::class, 'tour_stay_id')->orderBy('sort_order')->orderBy('id');
     }
 }

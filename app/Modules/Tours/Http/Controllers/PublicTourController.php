@@ -48,6 +48,12 @@ class PublicTourController extends Controller
                 'destinations.region',
                 'itineraryDays.destination',
                 'stays.destination',
+                'stays.stayHotels' => fn ($q) => $q->where('is_active', true)->with([
+                    'hotel' => fn ($hq) => $hq->where('status', 'active')->with([
+                        'destination',
+                        'roomTypes' => fn ($rq) => $rq->where('is_active', true)->with(['rates' => fn ($rrq) => $rrq->where('is_active', true)->orderBy('valid_from')]),
+                    ]),
+                ]),
                 'openDepartures',
             ])
             ->firstOrFail();
